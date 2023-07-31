@@ -10,5 +10,9 @@ export function mapDispatchToProps(dispatch: any) {
       const file = event.target.files[0];
       dispatch(uploadFile(file));
     },
+    handleInputChange: (row: any, col: any, value: any) => {
+      console.log("data is : ");
+      console.log(row, col, value);
+    }
   };
 }

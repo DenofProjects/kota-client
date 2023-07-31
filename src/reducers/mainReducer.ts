@@ -5,7 +5,8 @@ import { mainDTO } from "../DTOs/mainDTO";
 const initialState: mainDTO = {
   count: 0,
   file: null,
-  data: null
+  data: null,
+  userData: null
 };
 
 const mainReducer: Reducer<mainDTO> = (
@@ -26,8 +27,16 @@ const mainReducer: Reducer<mainDTO> = (
 
     case mainActionTypes.UPLOAD_FILE:
       return { ...state, file: action.payload, data: null };
-    case mainActionTypes.PARSE_EXCEL_DATA:
+    case mainActionTypes.PARSE_EXCEL_DATA: {
+      console.log("in reducer payload is : " + action.payload)
       return { ...state, data: action.payload };
+    }
+
+    case mainActionTypes.HANDLE_INPUT_CHANGE: {
+      console.log(action.row, action.col, action.value);
+      // newState.userData[action.row][action.col] = action.value;
+      return newState;
+    };
 
     default: {
       return newState;

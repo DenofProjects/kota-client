@@ -8,10 +8,11 @@ interface MainViewProps {
   readonly onIncrimentClick: () => void;
   readonly onDecrimentClick: () => void;
   readonly handleFileChange: (e: any) => any;
+  readonly handleInputChange: (row:any, col:any, e: any) => any;
 }
 
 class Main extends React.Component<MainViewProps> {
-  componentDidMount() {}
+  componentDidMount() { }
 
   render() {
     return (
