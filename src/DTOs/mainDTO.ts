@@ -1,6 +1,8 @@
 export interface mainDTO {
-  count: number;
   file: any,
   data: any[] | null,
-  userData: any[] | null
+  userData: any[] | null,
+  resultData: any[] | null,
+  row: number,
+  col: number
 }

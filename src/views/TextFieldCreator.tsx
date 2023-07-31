@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as XLSX from "xlsx";
-import { handleInputChange, parseExcelData } from "../reducerActions/mainReducerActions";
+import { handleInputChange, parseExcelData, updateRowCol } from "../reducerActions/mainReducerActions";
 
 const TextFieldCreator = (props: any) => {
   const dispatch = useDispatch();
@@ -35,6 +35,11 @@ const TextFieldCreator = (props: any) => {
           { header: 1 }
         );
         console.log("Sheet Data:", sheetData); // Add this line to debug
+        console.log("row", sheetData.length);
+        if (sheetData[0] && sheetData[0] instanceof Array) {
+          console.log("col", sheetData[0].length);
+          dispatch(updateRowCol(sheetData.length, sheetData[0].length));
+        }
         dispatch(parseExcelData(sheetData));
       } catch (error: any) {
         console.error("Error parsing Excel data:", error.message);
@@ -65,7 +70,7 @@ const TextFieldCreator = (props: any) => {
       return data.map((row: any, rowIndex: number) => (
         <div key={rowIndex}>
           {Object.keys(row).map((key, colIndex) => (
-            <input key={colIndex} type="text" defaultValue={row[key]} onPaste={handlePaste}
+            <input key={colIndex} type="text" onPaste={handlePaste}
               onContextMenu={handleContextMenu}
               onChange={(e) =>
                 dispatch(handleInputChange(rowIndex, colIndex, e.target.value))

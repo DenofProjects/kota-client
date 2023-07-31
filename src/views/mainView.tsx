@@ -8,7 +8,7 @@ interface MainViewProps {
   readonly onIncrimentClick: () => void;
   readonly onDecrimentClick: () => void;
   readonly handleFileChange: (e: any) => any;
-  readonly handleInputChange: (row:any, col:any, e: any) => any;
+  readonly submitReport: () => any;
 }
 
 class Main extends React.Component<MainViewProps> {
@@ -20,6 +20,8 @@ class Main extends React.Component<MainViewProps> {
         <div>
           <input type="file" onChange={this.props.handleFileChange} />
         </div>
+
+        <button onClick={this.props.submitReport}>Submit</button>
 
         <TextFieldCreator props={this.props} />
       </React.Fragment>
