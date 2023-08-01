@@ -27,3 +27,8 @@ export const updateRowCol = (row: any, col: any) => ({
 export const submitReport = () => ({
   type: mainActionTypes.SUBMIT_REPORT,
 });
+
+export const downloadUserData = (dispatch:any) => ({
+  type: mainActionTypes.DOWNLOAD_USER_DATA,
+  dispatch:dispatch
+})

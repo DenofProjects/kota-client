@@ -1,6 +1,7 @@
 import { Reducer } from "redux";
 import mainActionTypes from "../actionTypes/mainActionTypes";
 import { mainDTO } from "../DTOs/mainDTO";
+import { MainHelper } from "../helper/mainHelper";
 
 const initialState: mainDTO = {
   file: null,
@@ -63,6 +64,13 @@ const mainReducer: Reducer<mainDTO> = (
         }
       }
       console.log("final result metrix : ", newState.resultData);
+      return newState;
+    }
+
+    case mainActionTypes.DOWNLOAD_USER_DATA: {
+      if (newState.resultData != null)
+        console.log("Data we are sending to mainhelper to download : ", newState.userData);
+      action.dispatch(MainHelper.downloadUserData_Helper(newState.userData));
       return newState;
     }
 

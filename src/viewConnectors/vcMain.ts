@@ -1,4 +1,4 @@
-import { submitReport, uploadFile } from "../reducerActions/mainReducerActions";
+import { downloadUserData, submitReport, uploadFile } from "../reducerActions/mainReducerActions";
 
 export const mapStateToProps = (state: any) => {
   return { mainState: state.mainReducerState };
@@ -12,6 +12,10 @@ export function mapDispatchToProps(dispatch: any) {
     },
     submitReport: () => {
       dispatch(submitReport());
+    },
+
+    downloadUserData: () => {
+      dispatch(downloadUserData(dispatch));
     }
   };
 }

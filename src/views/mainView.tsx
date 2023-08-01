@@ -9,6 +9,7 @@ interface MainViewProps {
   readonly onDecrimentClick: () => void;
   readonly handleFileChange: (e: any) => any;
   readonly submitReport: () => any;
+  readonly downloadUserData: () => any;
 }
 
 class Main extends React.Component<MainViewProps> {
@@ -22,6 +23,7 @@ class Main extends React.Component<MainViewProps> {
         </div>
 
         <button onClick={this.props.submitReport}>Submit</button>
+        <button onClick={this.props.downloadUserData}>Download</button>
 
         <TextFieldCreator props={this.props} />
       </React.Fragment>

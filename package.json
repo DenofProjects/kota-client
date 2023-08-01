@@ -13,6 +13,7 @@
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
     "cra-template": "1.2.0",
+    "file-saver": "^2.0.5",
     "import": "0.0.6",
     "jwt-decode": "^3.0.0",
     "npm": "^9.2.0",
@@ -52,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.5",
     "redux-mock-store": "^1.5.4"
   }
 }

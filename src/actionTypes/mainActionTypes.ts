@@ -3,7 +3,8 @@ enum mainActionTypes {
   PARSE_EXCEL_DATA,
   HANDLE_INPUT_CHANGE,
   UPDATE_ROW_COL_SIZE,
-  SUBMIT_REPORT
+  SUBMIT_REPORT,
+  DOWNLOAD_USER_DATA
 }
 
 export default mainActionTypes;
