@@ -4,5 +4,6 @@ export interface mainDTO {
   userData: any[] | null,
   resultData: any[] | null,
   row: number,
-  col: number
+  col: number,
+  tempData: any[] | null
 }

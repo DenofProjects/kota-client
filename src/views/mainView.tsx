@@ -25,6 +25,8 @@ class Main extends React.Component<MainViewProps> {
         <button onClick={this.props.submitReport}>Submit</button>
         <button onClick={this.props.downloadUserData}>Download</button>
 
+        <div>Are you returning user?</div>
+
         <TextFieldCreator props={this.props} />
       </React.Fragment>
     );

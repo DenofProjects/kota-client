@@ -8,6 +8,7 @@ const TextFieldCreator = (props: any) => {
   const dispatch = useDispatch();
   const file = props.props.mainState.file;
   const data = props.props.mainState.data;
+  const tempData = props.props.mainState.tempData;
 
   useEffect(() => {
     if (file) {
@@ -67,21 +68,43 @@ const TextFieldCreator = (props: any) => {
 
   const renderTextFields = (): React.ReactNode => {
     if (data && data.length > 0) {
-      return data.map((row: any, rowIndex: number) => (
-        <div key={rowIndex}>
-          {Object.keys(row).map((key, colIndex) => (
-            <input key={colIndex} type="text" onPaste={handlePaste}
-              onContextMenu={handleContextMenu}
-              onChange={(e) =>
-                dispatch(handleInputChange(rowIndex, colIndex, e.target.value))
-              }
-            />
+      const columnHeaders = Object.keys(data[0]);
+
+      return (
+        <div>
+          <div style={{ display: "flex", marginBottom: "5px" }}>
+            <div style={{ width: "40px", textAlign: "center", fontWeight: "bold" }}>
+              {"Row"}
+            </div>
+            {columnHeaders.map((header, colIndex) => (
+              <div key={colIndex} style={{ width: "100px", textAlign: "center", fontWeight: "bold" }}>
+                {String.fromCharCode(65 + colIndex)} {/* Convert numeric index to alphanumeric */}
+              </div>
+            ))}
+          </div>
+
+          {data.map((row: any, rowIndex: number) => (
+            <div key={rowIndex} style={{ display: "flex", marginBottom: "5px" }}>
+              <div style={{ width: "40px", textAlign: "center", paddingRight: "50px" }}>{rowIndex + 1}</div> {/* Row index */}
+              {columnHeaders.map((header, colIndex) => (
+                <input
+                  key={colIndex}
+                  type="text"
+                  onPaste={handlePaste}
+                  onContextMenu={handleContextMenu}
+                  onChange={(e) => dispatch(handleInputChange(rowIndex, colIndex, e.target.value))}
+                  style={{ width: "100px" }}
+                // defaultValue={tempData[rowIndex][colIndex]}
+                />
+              ))}
+            </div>
           ))}
         </div>
-      ));
+      );
     }
-    return null;
+    return <div>No data available. Please upload an Excel file.</div>;
   };
+
 
   return (
     <div>
