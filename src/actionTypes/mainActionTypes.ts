@@ -4,7 +4,8 @@ enum mainActionTypes {
   HANDLE_INPUT_CHANGE,
   UPDATE_ROW_COL_SIZE,
   SUBMIT_REPORT,
-  DOWNLOAD_USER_DATA
+  DOWNLOAD_USER_DATA,
+  SET_RETURNING_USER_VALUE
 }
 
 export default mainActionTypes;

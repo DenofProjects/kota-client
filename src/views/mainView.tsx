@@ -10,6 +10,7 @@ interface MainViewProps {
   readonly handleFileChange: (e: any) => any;
   readonly submitReport: () => any;
   readonly downloadUserData: () => any;
+  readonly handleRadioChange: () => any;
 }
 
 class Main extends React.Component<MainViewProps> {
@@ -26,6 +27,10 @@ class Main extends React.Component<MainViewProps> {
         <button onClick={this.props.downloadUserData}>Download</button>
 
         <div>Are you returning user?</div>
+        <label>
+          <input type="checkbox" name="option1" value="Option 1" onClick={this.props.handleRadioChange} />
+          Option 1
+        </label>
 
         <TextFieldCreator props={this.props} />
       </React.Fragment>

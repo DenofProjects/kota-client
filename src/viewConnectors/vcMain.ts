@@ -1,4 +1,4 @@
-import { downloadUserData, submitReport, uploadFile } from "../reducerActions/mainReducerActions";
+import { downloadUserData, setReturningUserValue, submitReport, uploadFile } from "../reducerActions/mainReducerActions";
 
 export const mapStateToProps = (state: any) => {
   return { mainState: state.mainReducerState };
@@ -16,6 +16,11 @@ export function mapDispatchToProps(dispatch: any) {
 
     downloadUserData: () => {
       dispatch(downloadUserData(dispatch));
+    }
+    ,
+
+    handleRadioChange: () => {
+      dispatch(setReturningUserValue());
     }
   };
 }

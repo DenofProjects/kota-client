@@ -17,7 +17,6 @@ export const handleInputChange = (row: any, col: any, value: any) => ({
   value: value
 });
 
-
 export const updateRowCol = (row: any, col: any) => ({
   type: mainActionTypes.UPDATE_ROW_COL_SIZE,
   row: row,
@@ -28,7 +27,11 @@ export const submitReport = () => ({
   type: mainActionTypes.SUBMIT_REPORT,
 });
 
-export const downloadUserData = (dispatch:any) => ({
+export const downloadUserData = (dispatch: any) => ({
   type: mainActionTypes.DOWNLOAD_USER_DATA,
-  dispatch:dispatch
-})
+  dispatch: dispatch
+});
+
+export const setReturningUserValue = () => ({
+  type: mainActionTypes.SET_RETURNING_USER_VALUE,
+});

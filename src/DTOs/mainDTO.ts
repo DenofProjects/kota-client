@@ -5,5 +5,6 @@ export interface mainDTO {
   resultData: any[] | null,
   row: number,
   col: number,
-  tempData: any[] | null
+  tempData: any[] | null,
+  isReturningUser: boolean;
 }
