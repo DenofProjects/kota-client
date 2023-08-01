@@ -1,4 +1,3 @@
-// TextFieldCreator.tsx
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as XLSX from "xlsx";
@@ -8,7 +7,7 @@ const TextFieldCreator = (props: any) => {
   const dispatch = useDispatch();
   const file = props.props.mainState.file;
   const data = props.props.mainState.data;
-  const tempData = props.props.mainState.tempData;
+  // const tempData = props.props.mainState.tempData;
 
   useEffect(() => {
     if (file) {

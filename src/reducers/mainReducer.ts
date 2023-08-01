@@ -10,7 +10,7 @@ const initialState: mainDTO = {
   resultData: [],
   row: 0,
   col: 0,
-  tempData:[[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+  tempData: [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
 };
 
 const mainReducer: Reducer<mainDTO> = (
@@ -55,8 +55,8 @@ const mainReducer: Reducer<mainDTO> = (
       console.log("excel data : ", newState.data);
       for (let i = 0; i < newState.row; i++) {
         for (let j = 0; j < newState.col; j++) {
-          if (newState.userData != null && newState.data != null && newState.resultData != null) {
-            if (newState.userData[i][j] != newState.data[i][j]) {
+          if (newState.userData !== null && newState.data !== null && newState.resultData !== null) {
+            if (newState.userData[i][j] !== newState.data[i][j]) {
               newState.resultData[i][j] = -1;
             } else {
               newState.resultData[i][j] = newState.data[i][j];

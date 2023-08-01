@@ -13,7 +13,7 @@ interface MainViewProps {
 }
 
 class Main extends React.Component<MainViewProps> {
-  componentDidMount() { }
+  componentDidMount() { console.log("Application started..."); }
 
   render() {
     return (
