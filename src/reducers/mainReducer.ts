@@ -6,8 +6,10 @@ import { MainHelper } from "../helper/mainHelper";
 const initialState: mainDTO = {
   file: null,
   data: null,
+  returningUserFile: null,
   userData: [],
   resultData: [],
+  returningUserData: [],
   row: 0,
   col: 0,
   tempData: [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]],
@@ -26,9 +28,10 @@ const mainReducer: Reducer<mainDTO> = (
       newState.col = action.col;
       for (let i = 0; i < newState.row; i++) {
         for (let j = 0; j < newState.col; j++) {
-          if (newState.userData != null && newState.resultData != null) {
+          if (newState.userData != null && newState.resultData != null && newState.returningUserData != null) {
             newState.userData[i] = [];
             newState.resultData[i] = [];
+            newState.returningUserData[i] = [];
           }
         }
       }
@@ -38,9 +41,33 @@ const mainReducer: Reducer<mainDTO> = (
     case mainActionTypes.UPLOAD_FILE:
       return { ...state, file: action.payload, data: null };
 
+    case mainActionTypes.UPLOAD_RETURNING_USER_FILE: {
+      console.log("uploading returning user file");
+      newState.returningUserFile = action.payload;
+      return newState;
+    }
+
     case mainActionTypes.PARSE_EXCEL_DATA: {
-      console.log("in reducer payload is : " + action.payload)
       return { ...state, data: action.payload };
+    }
+
+    case mainActionTypes.PARSE_RETURNING_USER_EXCEL_DATA: {
+      console.log("PARSE_RETURNING_USER_EXCEL_DATA : ", action.payload);
+      for (let i = 0; i < newState.row; i++) {
+        for (let j = 0; j < newState.col; j++) {
+          if (newState.returningUserData !== null) {
+            if (action.payload[i][j]) {
+              newState.returningUserData[i][j] = action.payload[i][j]
+            } else {
+              newState.returningUserData[i][j] = -1;
+            }
+          }
+        }
+      }
+
+      // newState.returningUserData = action.payload;
+      console.log("set data to returningUserData in reducer : ", newState.returningUserData);
+      return newState;
     }
 
     case mainActionTypes.HANDLE_INPUT_CHANGE: {

@@ -1,4 +1,4 @@
-import { downloadUserData, setReturningUserValue, submitReport, uploadFile } from "../reducerActions/mainReducerActions";
+import { downloadUserData, setReturningUserValue, submitReport, uploadFile, uploadReturningUserFile } from "../reducerActions/mainReducerActions";
 
 export const mapStateToProps = (state: any) => {
   return { mainState: state.mainReducerState };
@@ -10,6 +10,12 @@ export function mapDispatchToProps(dispatch: any) {
       const file = event.target.files[0];
       dispatch(uploadFile(file));
     },
+
+    handleReturningUserFileUpload: (event: any) => {
+      const file = event.target.files[0];
+      dispatch(uploadReturningUserFile(file));
+    },
+
     submitReport: () => {
       dispatch(submitReport());
     },

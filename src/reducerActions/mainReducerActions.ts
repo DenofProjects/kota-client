@@ -5,8 +5,18 @@ export const uploadFile = (file: any) => ({
   payload: file,
 });
 
+export const uploadReturningUserFile = (file: any) => ({
+  type: mainActionTypes.UPLOAD_RETURNING_USER_FILE,
+  payload: file
+});
+
 export const parseExcelData = (data: any[]) => ({
   type: mainActionTypes.PARSE_EXCEL_DATA,
+  payload: data,
+});
+
+export const parseReturningUserExcelData = (data: any[]) => ({
+  type: mainActionTypes.PARSE_RETURNING_USER_EXCEL_DATA,
   payload: data,
 });
 
