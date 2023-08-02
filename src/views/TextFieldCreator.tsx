@@ -7,7 +7,6 @@ const TextFieldCreator = (props: any) => {
   const dispatch = useDispatch();
   const file = props.props.mainState.file;
   const data = props.props.mainState.data;
-  // const tempData = props.props.mainState.tempData;
 
   useEffect(() => {
     if (file) {
@@ -93,7 +92,7 @@ const TextFieldCreator = (props: any) => {
                   onContextMenu={handleContextMenu}
                   onChange={(e) => dispatch(handleInputChange(rowIndex, colIndex, e.target.value))}
                   style={{ width: "100px" }}
-                // defaultValue={tempData[rowIndex][colIndex]}
+                  defaultValue={props.props.mainState.returningUserData[rowIndex][colIndex]}
                 />
               ))}
             </div>

@@ -11,4 +11,23 @@ export class MainHelper {
         const dataBlob = new Blob([excelBuffer], { type: "application/octet-stream" });
         saveAs(dataBlob, "user-data.xlsx");
     }
+
+    static copyReturningUserDataToUserData(returningUserData: any, userData: any, row: any, col: any) {
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < col; j++) {
+                if (!userData[i][j])
+                    userData[i][j] = returningUserData[i][j];
+            }
+        }
+        console.log("copied returning user data to user data : ", userData);
+    }
+
+    static convertStringToInteger(userData: any, row: any, col: any) {
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < col; j++) {
+                if (userData[i][j])
+                    userData[i][j] = Math.floor(userData[i][j]);
+            }
+        }
+    }
 }

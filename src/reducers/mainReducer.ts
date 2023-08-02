@@ -56,10 +56,8 @@ const mainReducer: Reducer<mainDTO> = (
       for (let i = 0; i < newState.row; i++) {
         for (let j = 0; j < newState.col; j++) {
           if (newState.returningUserData !== null) {
-            if (action.payload[i][j]) {
-              newState.returningUserData[i][j] = action.payload[i][j]
-            } else {
-              newState.returningUserData[i][j] = -1;
+            if (action.payload[i] != undefined) {
+              newState.returningUserData[i][j] = action.payload[i][j];
             }
           }
         }
@@ -79,8 +77,15 @@ const mainReducer: Reducer<mainDTO> = (
     };
 
     case mainActionTypes.SUBMIT_REPORT: {
+      console.log("in submit report");
       console.log("user data is : ", newState.userData);
       console.log("excel data : ", newState.data);
+      console.log("returning user data : ", newState.returningUserData);
+
+      MainHelper.copyReturningUserDataToUserData(newState.returningUserData, newState.userData, newState.row, newState.col);
+      MainHelper.convertStringToInteger(newState.userData, newState.row, newState.col);
+      console.log("user data after converting : ", newState.userData);
+
       for (let i = 0; i < newState.row; i++) {
         for (let j = 0; j < newState.col; j++) {
           if (newState.userData !== null && newState.data !== null && newState.resultData !== null) {
@@ -99,6 +104,8 @@ const mainReducer: Reducer<mainDTO> = (
     case mainActionTypes.DOWNLOAD_USER_DATA: {
       if (newState.resultData != null)
         console.log("Data we are sending to mainhelper to download : ", newState.userData);
+      MainHelper.copyReturningUserDataToUserData(newState.returningUserData, newState.userData, newState.row, newState.col);
+      MainHelper.convertStringToInteger(newState.userData, newState.row, newState.col);
       action.dispatch(MainHelper.downloadUserData_Helper(newState.userData));
       return newState;
     }
