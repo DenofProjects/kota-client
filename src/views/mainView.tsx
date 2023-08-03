@@ -14,6 +14,8 @@ interface MainViewProps {
   readonly submitReport: () => any;
   readonly downloadUserData: () => any;
   readonly handleRadioChange: () => any;
+  readonly setEmail: (email:string) => any;
+  readonly sePassword: (password:string) => any;
 }
 
 class Main extends React.Component<MainViewProps> {

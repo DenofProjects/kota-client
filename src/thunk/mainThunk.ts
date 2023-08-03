@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function createOrUpdateCoupons() {
+export function fetchUserDetails() {
     return (_dispatch: any, getState: any) => {
         console.log(getState());
         const uri = "https://sheetdb.io/api/v1/2ibxtf5r7x04h";

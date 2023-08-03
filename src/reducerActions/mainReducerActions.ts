@@ -45,3 +45,13 @@ export const downloadUserData = (dispatch: any) => ({
 export const setReturningUserValue = () => ({
   type: mainActionTypes.SET_RETURNING_USER_VALUE,
 });
+
+export const setEmail = (email: string) => ({
+  type: mainActionTypes.SET_EMAIL,
+  email: email
+});
+
+export const setPassword = (password: string) => ({
+  type: mainActionTypes.SET_PASSWORD,
+  password: password
+});

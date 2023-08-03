@@ -1,4 +1,4 @@
-import { downloadUserData, setReturningUserValue, submitReport, uploadFile, uploadReturningUserFile } from "../reducerActions/mainReducerActions";
+import { downloadUserData, setEmail, setPassword, setReturningUserValue, submitReport, uploadFile, uploadReturningUserFile } from "../reducerActions/mainReducerActions";
 
 export const mapStateToProps = (state: any) => {
   return { mainState: state.mainReducerState };
@@ -27,6 +27,14 @@ export function mapDispatchToProps(dispatch: any) {
 
     handleRadioChange: () => {
       dispatch(setReturningUserValue());
+    },
+
+    setEmail: (email: string) => {
+      dispatch(setEmail(email));
+    },
+
+    setPassword: (password: string) => {
+      dispatch(setPassword(password));
     }
   };
 }

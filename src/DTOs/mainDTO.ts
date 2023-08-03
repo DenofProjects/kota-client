@@ -8,4 +8,6 @@ export interface mainDTO {
   row: number,
   col: number,
   isReturningUser: boolean;
+  userEmail: string;
+  userPassword: string;
 }

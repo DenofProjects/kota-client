@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import "./../style/login.css";
 
-const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const Login = (props: any) => {
     const [errorMessage, setErrorMessage] = useState('');
 
     //   const handleLogin = (e) => {
@@ -35,8 +33,8 @@ const Login = () => {
                     <label>Email:</label>
                     <input
                         type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={props.props.mainState.userEmail}
+                        onChange={(e) => props.props.setEmail(e.target.value)}
                         className="input-field"
                     />
                 </div>
@@ -44,8 +42,8 @@ const Login = () => {
                     <label>Password:</label>
                     <input
                         type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={props.props.mainState.userPassword}
+                        onChange={(e) => props.props.setPassword(e.target.value)}
                         className="input-field"
                     />
                 </div>

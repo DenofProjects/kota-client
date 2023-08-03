@@ -12,7 +12,9 @@ const initialState: mainDTO = {
   returningUserData: [],
   row: 0,
   col: 0,
-  isReturningUser: false
+  isReturningUser: false,
+  userEmail:"",
+  userPassword:""
 };
 
 const mainReducer: Reducer<mainDTO> = (
@@ -113,6 +115,16 @@ const mainReducer: Reducer<mainDTO> = (
     case mainActionTypes.SET_RETURNING_USER_VALUE: {
       newState.isReturningUser = !newState.isReturningUser;
       console.log("returning user value : ", newState.isReturningUser);
+      return newState;
+    }
+
+    case mainActionTypes.SET_EMAIL: {
+      newState.userEmail = action.email;
+      return newState;
+    }
+
+    case mainActionTypes.SET_PASSWORD: {
+      newState.userPassword = action.password;
       return newState;
     }
 
