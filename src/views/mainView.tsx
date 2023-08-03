@@ -14,8 +14,9 @@ interface MainViewProps {
   readonly submitReport: () => any;
   readonly downloadUserData: () => any;
   readonly handleRadioChange: () => any;
-  readonly setEmail: (email:string) => any;
-  readonly sePassword: (password:string) => any;
+  readonly setEmail: (email: string) => any;
+  readonly sePassword: (password: string) => any;
+  readonly onLoginSubmit: () => void;
 }
 
 class Main extends React.Component<MainViewProps> {
@@ -24,8 +25,9 @@ class Main extends React.Component<MainViewProps> {
   render() {
     return (
       <React.Fragment>
-        <Login />
-        <div>
+        <div hidden={!this.props.mainState.showLoginForm}><Login props={this.props} /></div>
+
+        <div hidden={this.props.mainState.showLoginForm}>
           <input type="file" onChange={this.props.handleFileChange} />
           <div>Are you returning user?</div>
           <label>

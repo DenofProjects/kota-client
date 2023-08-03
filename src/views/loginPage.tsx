@@ -26,7 +26,7 @@ const Login = (props: any) => {
 
     return (
         <div className="container">
-            <form className="login-form" >
+            <div className="login-form" >
                 <h2>Login Page</h2>
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
                 <div>
@@ -47,10 +47,10 @@ const Login = (props: any) => {
                         className="input-field"
                     />
                 </div>
-                <button type="submit" className="login-button">
+                <button type="submit" className="login-button" onClick={props.props.onLoginSubmit}>
                     Login
                 </button>
-            </form>
+            </div>
         </div>
     );
 };

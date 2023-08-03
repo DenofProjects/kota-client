@@ -13,8 +13,10 @@ const initialState: mainDTO = {
   row: 0,
   col: 0,
   isReturningUser: false,
-  userEmail:"",
-  userPassword:""
+  userEmail: "",
+  userPassword: "",
+  showLoginForm: true,
+  errorMessage: ""
 };
 
 const mainReducer: Reducer<mainDTO> = (
@@ -125,6 +127,17 @@ const mainReducer: Reducer<mainDTO> = (
 
     case mainActionTypes.SET_PASSWORD: {
       newState.userPassword = action.password;
+      return newState;
+    }
+
+    case mainActionTypes.SET_ERROR_MESSAGE: {
+      newState.errorMessage = action.message;
+      alert(newState.errorMessage);
+      return newState;
+    }
+
+    case mainActionTypes.LOGIN: {
+      newState.showLoginForm = !newState.showLoginForm;
       return newState;
     }
 

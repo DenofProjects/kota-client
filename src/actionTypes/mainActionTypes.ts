@@ -9,7 +9,9 @@ enum mainActionTypes {
   PARSE_RETURNING_USER_EXCEL_DATA,
   UPLOAD_RETURNING_USER_FILE,
   SET_EMAIL,
-  SET_PASSWORD
+  SET_PASSWORD,
+  SET_ERROR_MESSAGE,
+  LOGIN
 }
 
 export default mainActionTypes;

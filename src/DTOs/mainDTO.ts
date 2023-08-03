@@ -10,4 +10,6 @@ export interface mainDTO {
   isReturningUser: boolean;
   userEmail: string;
   userPassword: string;
+  showLoginForm: boolean;
+  errorMessage: string;
 }

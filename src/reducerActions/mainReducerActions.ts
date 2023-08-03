@@ -55,3 +55,12 @@ export const setPassword = (password: string) => ({
   type: mainActionTypes.SET_PASSWORD,
   password: password
 });
+
+export const setErrorMessage = (message: string) => ({
+  type: mainActionTypes.SET_ERROR_MESSAGE,
+  message: message
+});
+
+export const loggingIn = () => ({
+  type: mainActionTypes.LOGIN
+})

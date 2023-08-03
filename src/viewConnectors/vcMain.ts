@@ -1,4 +1,5 @@
 import { downloadUserData, setEmail, setPassword, setReturningUserValue, submitReport, uploadFile, uploadReturningUserFile } from "../reducerActions/mainReducerActions";
+import { fetchUserDetails } from "../thunk/mainThunk";
 
 export const mapStateToProps = (state: any) => {
   return { mainState: state.mainReducerState };
@@ -35,6 +36,10 @@ export function mapDispatchToProps(dispatch: any) {
 
     setPassword: (password: string) => {
       dispatch(setPassword(password));
+    },
+
+    onLoginSubmit: () => {
+      dispatch(fetchUserDetails());
     }
   };
 }
