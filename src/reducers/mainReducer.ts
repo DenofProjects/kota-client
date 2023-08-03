@@ -12,7 +12,6 @@ const initialState: mainDTO = {
   returningUserData: [],
   row: 0,
   col: 0,
-  tempData: [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]],
   isReturningUser: false
 };
 
@@ -98,6 +97,7 @@ const mainReducer: Reducer<mainDTO> = (
         }
       }
       console.log("final result metrix : ", newState.resultData);
+      MainHelper.convert2dArrayToExcelSheet(newState.data, MainHelper.getRedCells(newState.resultData, newState.data, newState.row, newState.col));
       return newState;
     }
 

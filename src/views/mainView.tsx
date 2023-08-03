@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { mapDispatchToProps, mapStateToProps } from "../viewConnectors/vcMain";
 import TextFieldCreator from "./TextFieldCreator";
 import ExcelParserForReturningUser from "./excelParser";
+import Login from "./loginPage";
 
 interface MainViewProps {
   readonly mainState: any;
@@ -21,6 +22,7 @@ class Main extends React.Component<MainViewProps> {
   render() {
     return (
       <React.Fragment>
+        <Login />
         <div>
           <input type="file" onChange={this.props.handleFileChange} />
           <div>Are you returning user?</div>
