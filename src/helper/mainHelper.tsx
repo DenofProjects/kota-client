@@ -32,6 +32,23 @@ export class MainHelper {
         }
     }
 
+    static countErrorsSoFar(userData: any, data: any, row: any, col: any) {
+        let errorsSoFar: number = 0;
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < col; j++) {
+                if (userData[i]) {
+                    if (userData[i][j]) {
+                        if (userData[i][j] != data[i][j]) {
+                            console.log("increasing error count");
+                            errorsSoFar++;
+                        }
+                    }
+                }
+            }
+        }
+        return errorsSoFar;
+    }
+
     static getRedCells(resultData: any, data: any, row: any, col: any) {
         let redCells: any = [];
         for (let i = 0; i < row; i++) {

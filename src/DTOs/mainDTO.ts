@@ -12,4 +12,6 @@ export interface mainDTO {
   userPassword: string;
   showLoginForm: boolean;
   errorMessage: string;
+  filledDataCount: number;
+  errorsSoFar: number;
 }

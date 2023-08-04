@@ -15,8 +15,10 @@ const initialState: mainDTO = {
   isReturningUser: false,
   userEmail: "",
   userPassword: "",
-  showLoginForm: true,
-  errorMessage: ""
+  showLoginForm: false,
+  errorMessage: "",
+  filledDataCount: 0, // TODO : fix this
+  errorsSoFar: 0
 };
 
 const mainReducer: Reducer<mainDTO> = (
@@ -73,9 +75,11 @@ const mainReducer: Reducer<mainDTO> = (
 
     case mainActionTypes.HANDLE_INPUT_CHANGE: {
       console.log(action.row, action.col, action.value);
-      if (newState.userData != null)
+      if (newState.userData != null) {
         newState.userData[action.row][action.col] = action.value;
-      console.log("final user data : ", newState.userData);
+        newState.filledDataCount++;
+      }
+      console.log("final user data : ", newState.userData, "and filledDataCount : ", newState.filledDataCount);
       return newState;
     };
 
@@ -110,6 +114,9 @@ const mainReducer: Reducer<mainDTO> = (
         console.log("Data we are sending to mainhelper to download : ", newState.userData);
       MainHelper.copyReturningUserDataToUserData(newState.returningUserData, newState.userData, newState.row, newState.col);
       MainHelper.convertStringToInteger(newState.userData, newState.row, newState.col);
+      newState.errorsSoFar = MainHelper.countErrorsSoFar(newState.userData, newState.data, newState.row, newState.col);
+      console.log("Error counts while download are : ", newState.errorsSoFar);
+      console.log("filled data while download : ", newState.filledDataCount);
       action.dispatch(MainHelper.downloadUserData_Helper(newState.userData));
       return newState;
     }

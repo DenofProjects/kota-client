@@ -4,6 +4,7 @@ import { mapDispatchToProps, mapStateToProps } from "../viewConnectors/vcMain";
 import TextFieldCreator from "./TextFieldCreator";
 import ExcelParserForReturningUser from "./excelParser";
 import Login from "./loginPage";
+import "./../style/main.css";
 
 interface MainViewProps {
   readonly mainState: any;
@@ -28,14 +29,17 @@ class Main extends React.Component<MainViewProps> {
         <div hidden={!this.props.mainState.showLoginForm}><Login props={this.props} /></div>
 
         <div hidden={this.props.mainState.showLoginForm}>
-          <input type="file" onChange={this.props.handleFileChange} />
+          <input type="file" onChange={this.props.handleFileChange} /><br />
+
+          <div className="submitAndDownloadButtons">
+            <button className="button" onClick={this.props.submitReport}>Submit</button>
+            <button className="button" onClick={this.props.downloadUserData}>Download</button>
+          </div><br />
+
           <div>Are you returning user?</div>
           <label>
             <input type="checkbox" name="option1" value="Option 1" onClick={this.props.handleRadioChange} />
-          </label>
-
-          <button onClick={this.props.submitReport}>Submit</button>
-          <button onClick={this.props.downloadUserData}>Download</button>
+          </label><br />
 
           <div hidden={!this.props.mainState.isReturningUser}>
             <input type="file" onChange={this.props.handleReturningUserFileUpload} />
