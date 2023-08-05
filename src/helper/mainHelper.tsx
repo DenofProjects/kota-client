@@ -3,6 +3,7 @@ import { saveAs } from "file-saver";
 import ExcelJS from "exceljs";
 
 export class MainHelper {
+
     static downloadUserData_Helper(resultData: any) {
         console.log("Data to download : ", resultData);
         const worksheet = XLSX.utils.aoa_to_sheet(resultData);
@@ -47,6 +48,30 @@ export class MainHelper {
             }
         }
         return errorsSoFar;
+    }
+
+    static countFilledData(userData: any, row: number, col: number): number {
+        let filledDataCount: number = 0;
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < col; j++) {
+                if (userData[i]) {
+                    if (userData[i][j]) {
+                        filledDataCount++;
+                    }
+                }
+            }
+        }
+        return filledDataCount;
+    }
+
+    static clearReturningUserData(returningUserData: any, row: any, col: any) {
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < col; j++) {
+                if (returningUserData[i]) {
+                    returningUserData[i][j] = undefined;
+                }
+            }
+        }
     }
 
     static getRedCells(resultData: any, data: any, row: any, col: any) {

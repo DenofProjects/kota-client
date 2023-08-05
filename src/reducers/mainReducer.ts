@@ -2,6 +2,7 @@ import { Reducer } from "redux";
 import mainActionTypes from "../actionTypes/mainActionTypes";
 import { mainDTO } from "../DTOs/mainDTO";
 import { MainHelper } from "../helper/mainHelper";
+import { matchPrevDataAndSheetDataForReturningUser, saveFilledDataAndErrorCountSoFarOnDownload } from "../thunk/mainThunk";
 
 const initialState: mainDTO = {
   file: null,
@@ -13,11 +14,11 @@ const initialState: mainDTO = {
   row: 0,
   col: 0,
   isReturningUser: false,
-  userEmail: "",
+  userEmail: "rahulverma@gmail.com",
   userPassword: "",
   showLoginForm: false,
   errorMessage: "",
-  filledDataCount: 0, // TODO : fix this
+  filledDataCount: 0,
   errorsSoFar: 0
 };
 
@@ -56,6 +57,11 @@ const mainReducer: Reducer<mainDTO> = (
       return { ...state, data: action.payload };
     }
 
+    case mainActionTypes.CLEAR_RETURNING_USER_DATA: {
+      MainHelper.clearReturningUserData(newState.returningUserData, newState.row, newState.col);
+      return newState;
+    }
+
     case mainActionTypes.PARSE_RETURNING_USER_EXCEL_DATA: {
       console.log("PARSE_RETURNING_USER_EXCEL_DATA : ", action.payload);
       for (let i = 0; i < newState.row; i++) {
@@ -68,7 +74,11 @@ const mainReducer: Reducer<mainDTO> = (
         }
       }
 
-      // newState.returningUserData = action.payload;
+      newState.errorsSoFar = MainHelper.countErrorsSoFar(newState.returningUserData, newState.data, newState.row, newState.col);
+      newState.filledDataCount = MainHelper.countFilledData(newState.returningUserData, newState.row, newState.col);
+
+      action.dispatch(matchPrevDataAndSheetDataForReturningUser(newState.userEmail, newState.filledDataCount, newState.errorsSoFar));
+
       console.log("set data to returningUserData in reducer : ", newState.returningUserData);
       return newState;
     }
@@ -77,7 +87,6 @@ const mainReducer: Reducer<mainDTO> = (
       console.log(action.row, action.col, action.value);
       if (newState.userData != null) {
         newState.userData[action.row][action.col] = action.value;
-        newState.filledDataCount++;
       }
       console.log("final user data : ", newState.userData, "and filledDataCount : ", newState.filledDataCount);
       return newState;
@@ -115,13 +124,15 @@ const mainReducer: Reducer<mainDTO> = (
       MainHelper.copyReturningUserDataToUserData(newState.returningUserData, newState.userData, newState.row, newState.col);
       MainHelper.convertStringToInteger(newState.userData, newState.row, newState.col);
       newState.errorsSoFar = MainHelper.countErrorsSoFar(newState.userData, newState.data, newState.row, newState.col);
+      newState.filledDataCount = MainHelper.countFilledData(newState.userData, newState.row, newState.col);
+      action.dispatch(saveFilledDataAndErrorCountSoFarOnDownload(newState.userEmail, newState.filledDataCount, newState.errorsSoFar));
       console.log("Error counts while download are : ", newState.errorsSoFar);
       console.log("filled data while download : ", newState.filledDataCount);
       action.dispatch(MainHelper.downloadUserData_Helper(newState.userData));
       return newState;
     }
 
-    case mainActionTypes.SET_RETURNING_USER_VALUE: {
+    case mainActionTypes.SET_IS_RETURNING_USER_VALUE: {
       newState.isReturningUser = !newState.isReturningUser;
       console.log("returning user value : ", newState.isReturningUser);
       return newState;

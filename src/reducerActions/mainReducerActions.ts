@@ -15,9 +15,10 @@ export const parseExcelData = (data: any[]) => ({
   payload: data,
 });
 
-export const parseReturningUserExcelData = (data: any[]) => ({
+export const parseReturningUserExcelData = (data: any[], dispatch: any) => ({
   type: mainActionTypes.PARSE_RETURNING_USER_EXCEL_DATA,
   payload: data,
+  dispatch: dispatch
 });
 
 export const handleInputChange = (row: any, col: any, value: any) => ({
@@ -43,7 +44,7 @@ export const downloadUserData = (dispatch: any) => ({
 });
 
 export const setReturningUserValue = () => ({
-  type: mainActionTypes.SET_RETURNING_USER_VALUE,
+  type: mainActionTypes.SET_IS_RETURNING_USER_VALUE,
 });
 
 export const setEmail = (email: string) => ({
@@ -63,4 +64,8 @@ export const setErrorMessage = (message: string) => ({
 
 export const loggingIn = () => ({
   type: mainActionTypes.LOGIN
+})
+
+export const clearReturningUserData = () => ({
+  type: mainActionTypes.CLEAR_RETURNING_USER_DATA
 })

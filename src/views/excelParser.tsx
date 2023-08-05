@@ -7,7 +7,7 @@ const ExcelParserForReturningUser = (props: any) => {
     const dispatch = useDispatch();
     const file = props.props.mainState.returningUserFile;
     const data = props.props.mainState.data;
-    // const tempData = props.props.mainState.tempData;
+
     console.log("In returning user excel parser");
 
     useEffect(() => {
@@ -35,7 +35,7 @@ const ExcelParserForReturningUser = (props: any) => {
                     workbook.Sheets[firstSheetName],
                     { header: 1 }
                 );
-                dispatch(parseReturningUserExcelData(sheetData));
+                dispatch(parseReturningUserExcelData(sheetData, dispatch));
             } catch (error: any) {
                 console.error("Error parsing Excel data for returning user :", error.message);
             }
