@@ -2,11 +2,12 @@ import axios from "axios";
 import { Messages } from "../constants/Messages";
 import { clearReturningUserData, loggingIn, setErrorMessage } from "../reducerActions/mainReducerActions";
 import { EndPoints } from "../constants/EndPoint";
+import axiosConfig from "../configs/axiosConfig";
 
 export function fetchUserDetails() {
     return (dispatch: any, getState: any) => {
         console.log(getState());
-        const uri = EndPoints.BASE_URL;
+        const uri = EndPoints.BASE_URL_SHEET;
 
         const userEmail = getState().mainReducerState.userEmail;
         const userPassword = getState().mainReducerState.userPassword;
@@ -49,7 +50,7 @@ export function fetchUserDetails() {
 
 export function saveFilledDataAndErrorCountSoFarOnDownload(userEmail: any, filledDataCount: any, errorsSoFar: any) {
     return (dispatch: any, _getState: any) => {
-        const uri = EndPoints.BASE_URL + "/Email/" + userEmail;
+        const uri = EndPoints.BASE_URL_SHEET + "/Email/" + userEmail;
 
         if (userEmail != "") {
             // const resp = [{ "Name": "Rahul", "LastName": "Verma", "Email": "rahulverma@gmail.com", "Password": "password" }, { "Name": "nikki ", "LastName": "yadav", "Email": "nikki@gmail.com", "Password": "password" }];
@@ -73,7 +74,7 @@ export function saveFilledDataAndErrorCountSoFarOnDownload(userEmail: any, fille
 
 export function matchPrevDataAndSheetDataForReturningUser(userEmail: string, filledDataCount: number, errorsSoFar: number): any {
     return (dispatch: any, _getState: any) => {
-        const uri = EndPoints.BASE_URL;
+        const uri = EndPoints.BASE_URL_SHEET;
 
         if (userEmail != "") {
             // const resp = [{ "Name": "Rahul", "LastName": "Verma", "Email": "rahulverma@gmail.com", "Password": "password" }, { "Name": "nikki ", "LastName": "yadav", "Email": "nikki@gmail.com", "Password": "password" }];
@@ -101,5 +102,51 @@ export function matchPrevDataAndSheetDataForReturningUser(userEmail: string, fil
                     dispatch(setErrorMessage(Messages.ERROR_MATCHING_DATA));
                 });
         }
+    };
+}
+
+export function sendMailAfterSubmission(request: any) {
+    console.log("Request to send mail : ", JSON.stringify(request));
+    return (dispatch: any, _getState: any) => {
+        const uri = EndPoints.SEND_MAIL_ON_SUBMIT;
+        axiosConfig
+            .post(uri, request, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then((result) => {
+                if (result) {
+                    console.log(JSON.stringify(result.data));
+                } else {
+                    dispatch(setErrorMessage(Messages.ERROR_SUBMIT_REPORT));
+                }
+            })
+            .catch((err) => {
+                console.log("In catch sendMailAfterSubmission ", JSON.stringify(err.response), err.response);
+                dispatch(healthCheck());
+                dispatch(setErrorMessage(Messages.ERROR_SUBMIT_REPORT));
+            });
+    };
+}
+
+export function healthCheck() {
+    console.log("Running health check...");
+    return (_dispatch: any, _getState: any) => {
+        const uri = EndPoints.HEALTH_CHECK;
+        console.log("health check url : ", uri);
+        axiosConfig
+            .get(uri)
+            .then((result) => {
+                console.log("getting health check resp");
+                if (result) {
+                    console.log("health check resp is : ", JSON.stringify(result.data));
+                } else {
+                    console.log("Error in health check ");
+                }
+            })
+            .catch((err) => {
+                console.log("Error in health check , in catch", JSON.stringify(err));
+            });
     };
 }

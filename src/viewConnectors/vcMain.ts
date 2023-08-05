@@ -18,7 +18,7 @@ export function mapDispatchToProps(dispatch: any) {
     },
 
     submitReport: () => {
-      dispatch(submitReport());
+      dispatch(submitReport(dispatch));
     },
 
     downloadUserData: () => {

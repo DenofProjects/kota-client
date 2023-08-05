@@ -14,4 +14,5 @@ export interface mainDTO {
   errorMessage: string;
   filledDataCount: number;
   errorsSoFar: number;
+  totalRowsFilledWhileSubmit: number;
 }

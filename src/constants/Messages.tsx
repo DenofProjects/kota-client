@@ -4,4 +4,5 @@ export class Messages {
     public static readonly ERROR_FETCHING_USER_DETAILS = "Error fetching user details...";
     public static readonly ERROR_SAVING_DATA_ON_DOWNLOAD = "Error saving filledData and errorCountSoFar on download excel...";
     public static readonly ERROR_MATCHING_DATA = "Error matching previous and current uploaded data...";
+    public static readonly ERROR_SUBMIT_REPORT = "Error submitting report...";
 }

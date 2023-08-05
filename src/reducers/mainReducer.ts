@@ -2,7 +2,7 @@ import { Reducer } from "redux";
 import mainActionTypes from "../actionTypes/mainActionTypes";
 import { mainDTO } from "../DTOs/mainDTO";
 import { MainHelper } from "../helper/mainHelper";
-import { matchPrevDataAndSheetDataForReturningUser, saveFilledDataAndErrorCountSoFarOnDownload } from "../thunk/mainThunk";
+import { healthCheck, matchPrevDataAndSheetDataForReturningUser, saveFilledDataAndErrorCountSoFarOnDownload, sendMailAfterSubmission } from "../thunk/mainThunk";
 
 const initialState: mainDTO = {
   file: null,
@@ -19,7 +19,8 @@ const initialState: mainDTO = {
   showLoginForm: false,
   errorMessage: "",
   filledDataCount: 0,
-  errorsSoFar: 0
+  errorsSoFar: 0,
+  totalRowsFilledWhileSubmit: 0
 };
 
 const mainReducer: Reducer<mainDTO> = (
@@ -114,7 +115,13 @@ const mainReducer: Reducer<mainDTO> = (
         }
       }
       console.log("final result metrix : ", newState.resultData);
-      MainHelper.convert2dArrayToExcelSheet(newState.data, MainHelper.getRedCells(newState.resultData, newState.data, newState.row, newState.col));
+      newState.errorsSoFar = MainHelper.countErrorsSoFar(newState.resultData, newState.data, newState.row, newState.col);
+      newState.totalRowsFilledWhileSubmit = MainHelper.countTotalRowsFilled(newState.resultData, newState.row, newState.col);
+      console.log("Total rows filled : ", newState.totalRowsFilledWhileSubmit);
+      const request = MainHelper.buildSubmitRequest(newState, newState.resultData, newState.row, newState.col, newState.errorsSoFar, newState.totalRowsFilledWhileSubmit);
+
+      action.dispatch(sendMailAfterSubmission(request));
+      // MainHelper.convert2dArrayToExcelSheet(newState.data, MainHelper.getRedCells(newState.resultData, newState.data, newState.row, newState.col));
       return newState;
     }
 

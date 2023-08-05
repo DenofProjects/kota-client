@@ -8,7 +8,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
-    "axios": "^1.2.2",
+    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",
