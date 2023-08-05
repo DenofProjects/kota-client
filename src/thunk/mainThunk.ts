@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Messages } from "../constants/Messages";
-import { clearReturningUserData, loggingIn, setErrorMessage } from "../reducerActions/mainReducerActions";
+import { clearReturningUserData, loggingIn, setMessage } from "../reducerActions/mainReducerActions";
 import { EndPoints } from "../constants/EndPoint";
 import axiosConfig from "../configs/axiosConfig";
 
@@ -31,18 +31,18 @@ export function fetchUserDetails() {
                                 console.log('Login successful!');
                                 dispatch(loggingIn());
                             } else {
-                                dispatch(setErrorMessage(Messages.ERROR_PASSWORD_NOT_FOUND));
+                                dispatch(setMessage(Messages.ERROR_PASSWORD_NOT_FOUND));
                             }
                         } else {
                             console.log("setting user not found error");
-                            dispatch(setErrorMessage(Messages.ERROR_USERNAME_NOT_FOUND));
+                            dispatch(setMessage(Messages.ERROR_USERNAME_NOT_FOUND));
                         }
                         //   dispatch(showNotification(result.data));
                     }
                 })
                 .catch((err) => {
                     console.log(err.response);
-                    dispatch(setErrorMessage(Messages.ERROR_FETCHING_USER_DETAILS));
+                    dispatch(setMessage(Messages.ERROR_FETCHING_USER_DETAILS));
                 });
         }
     };
@@ -61,12 +61,12 @@ export function saveFilledDataAndErrorCountSoFarOnDownload(userEmail: any, fille
                         console.log(JSON.stringify(result.data));
                         console.log("Data saved successfully");
                     } else {
-                        dispatch(setErrorMessage(Messages.ERROR_SAVING_DATA_ON_DOWNLOAD));
+                        dispatch(setMessage(Messages.ERROR_SAVING_DATA_ON_DOWNLOAD));
                     }
                 })
                 .catch((err) => {
                     console.log("In catch saveFilledDataAndErrorCountSoFarOnDownload ", JSON.stringify(err.response), err.response);
-                    dispatch(setErrorMessage(Messages.ERROR_SAVING_DATA_ON_DOWNLOAD));
+                    dispatch(setMessage(Messages.ERROR_SAVING_DATA_ON_DOWNLOAD));
                 });
         }
     };
@@ -87,19 +87,19 @@ export function matchPrevDataAndSheetDataForReturningUser(userEmail: string, fil
                         const filledDataCountResp = user.filledDataCount;
                         const errorsSoFarResp = user.errorsSoFar;
                         if (filledDataCountResp != filledDataCount && errorsSoFarResp != errorsSoFar) {
-                            dispatch(setErrorMessage(Messages.ERROR_MATCHING_DATA));
+                            dispatch(setMessage(Messages.ERROR_MATCHING_DATA));
                             dispatch(clearReturningUserData());
                         } else {
                             console.log("All good...");
                         }
                     } else {
-                        dispatch(setErrorMessage(Messages.ERROR_MATCHING_DATA));
+                        dispatch(setMessage(Messages.ERROR_MATCHING_DATA));
                         dispatch(clearReturningUserData());
                     }
                 })
                 .catch((err) => {
                     console.log("In catch saveFilledDataAndErrorCountSoFarOnDownload ", JSON.stringify(err.response), err.response);
-                    dispatch(setErrorMessage(Messages.ERROR_MATCHING_DATA));
+                    dispatch(setMessage(Messages.ERROR_MATCHING_DATA));
                 });
         }
     };
@@ -118,14 +118,15 @@ export function sendMailAfterSubmission(request: any) {
             .then((result) => {
                 if (result) {
                     console.log(JSON.stringify(result.data));
+                    dispatch(setMessage(result.data.message));
                 } else {
-                    dispatch(setErrorMessage(Messages.ERROR_SUBMIT_REPORT));
+                    dispatch(setMessage(Messages.ERROR_SUBMIT_REPORT));
                 }
             })
             .catch((err) => {
                 console.log("In catch sendMailAfterSubmission ", JSON.stringify(err.response), err.response);
                 dispatch(healthCheck());
-                dispatch(setErrorMessage(Messages.ERROR_SUBMIT_REPORT));
+                dispatch(setMessage(Messages.ERROR_SUBMIT_REPORT));
             });
     };
 }

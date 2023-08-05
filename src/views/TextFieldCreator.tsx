@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as XLSX from "xlsx";
 import { handleInputChange, parseExcelData, updateRowCol } from "../reducerActions/mainReducerActions";
+import _ from 'lodash';
 
 const TextFieldCreator = (props: any) => {
   const dispatch = useDispatch();
@@ -47,6 +48,10 @@ const TextFieldCreator = (props: any) => {
     reader.readAsArrayBuffer(file);
   };
 
+  const handleInputChangeDebounced = _.debounce((rowIndex, colIndex, value) => {
+    dispatch(handleInputChange(rowIndex, colIndex, value));
+  }, 10); // Adjust the delay (in milliseconds) as needed.
+
   const strToArrBuf = (str: string): ArrayBuffer => {
     const buf = new ArrayBuffer(str.length);
     const bufView = new Uint8Array(buf);
@@ -83,14 +88,14 @@ const TextFieldCreator = (props: any) => {
 
           {data.map((row: any, rowIndex: number) => (
             <div key={rowIndex} style={{ display: "flex", marginBottom: "5px" }}>
-              <div style={{ width: "40px", textAlign: "center", paddingRight: "50px" }}>{rowIndex + 1}</div> {/* Row index */}
+              <div style={{ width: "40px", textAlign: "center", paddingRight: "10px" }}>{rowIndex + 1}</div> {/* Row index */}
               {columnHeaders.map((header, colIndex) => (
                 <input
                   key={colIndex}
                   type="text"
                   onPaste={handlePaste}
                   onContextMenu={handleContextMenu}
-                  onChange={(e) => dispatch(handleInputChange(rowIndex, colIndex, e.target.value))}
+                  onChange={(e) => handleInputChangeDebounced(rowIndex, colIndex, e.target.value)}
                   style={{ width: "100px" }}
                   defaultValue={props.props.mainState.returningUserData[rowIndex][colIndex]}
                 />

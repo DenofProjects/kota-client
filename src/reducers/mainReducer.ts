@@ -2,7 +2,7 @@ import { Reducer } from "redux";
 import mainActionTypes from "../actionTypes/mainActionTypes";
 import { mainDTO } from "../DTOs/mainDTO";
 import { MainHelper } from "../helper/mainHelper";
-import { healthCheck, matchPrevDataAndSheetDataForReturningUser, saveFilledDataAndErrorCountSoFarOnDownload, sendMailAfterSubmission } from "../thunk/mainThunk";
+import { matchPrevDataAndSheetDataForReturningUser, saveFilledDataAndErrorCountSoFarOnDownload, sendMailAfterSubmission } from "../thunk/mainThunk";
 
 const initialState: mainDTO = {
   file: null,
@@ -89,7 +89,7 @@ const mainReducer: Reducer<mainDTO> = (
       if (newState.userData != null) {
         newState.userData[action.row][action.col] = action.value;
       }
-      console.log("final user data : ", newState.userData, "and filledDataCount : ", newState.filledDataCount);
+      // console.log("final user data : ", newState.userData, "and filledDataCount : ", newState.filledDataCount);
       return newState;
     };
 

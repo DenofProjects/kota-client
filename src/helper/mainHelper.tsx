@@ -144,7 +144,7 @@ export class MainHelper {
         const fivePercentage = this.calculate5Per(newState.errorsSoFar, newState.totalRowsFilledWhileSubmit);
         const email = newState.userEmail;
         let request: any = {};
-        request.formData = formData;
+        request.formData = newState.resultData;
         request.fivePercentage = fivePercentage;
         request.email = email;
 

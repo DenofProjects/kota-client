@@ -58,7 +58,7 @@ export const setPassword = (password: string) => ({
   password: password
 });
 
-export const setErrorMessage = (message: string) => ({
+export const setMessage = (message: string) => ({
   type: mainActionTypes.SET_ERROR_MESSAGE,
   message: message
 });

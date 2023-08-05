@@ -8,8 +8,6 @@ const ExcelParserForReturningUser = (props: any) => {
     const file = props.props.mainState.returningUserFile;
     const data = props.props.mainState.data;
 
-    console.log("In returning user excel parser");
-
     useEffect(() => {
         if (file) {
             parseExcelFile(file);
